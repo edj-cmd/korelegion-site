@@ -258,16 +258,6 @@
   if (hasGSAP && !reduced) {
     gsap.registerPlugin(ScrollTrigger);
 
-    gsap.utils.toArray(".tl-step").forEach((step) => {
-      gsap.from(step, {
-        scrollTrigger: { trigger: step, start: "top 82%" },
-        opacity: 0,
-        x: -26,
-        duration: 0.8,
-        ease: "power3.out",
-      });
-    });
-
     gsap.to(".hero__inner", {
       scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 0.5 },
       y: 90,
