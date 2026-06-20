@@ -40,7 +40,7 @@ window.KORE_AGENTS = [
       "Sends your attorney a complete legal briefing the moment something critical happens",
       "Activates arrest mode — lawyer notified, family notified, bail monitored within 5 minutes",
       "Makes live calls and sends texts and emails to your attorney and family instantly",
-      "Scans court records and flags anything new",
+      "Scans court records daily — so nothing falls through the cracks",
       "Alerts you when fees or deadlines are approaching",
       "Notifies your family with enough information to actually help",
     ],
