@@ -14,6 +14,8 @@ window.KORE_AGENTS = [
     tagline: "Vera doesn't sleep. Neither does your life.",
     intro: "Your morning briefing hits before you open your eyes — schedule, priorities, alerts, everything you need to know about the day, delivered automatically. Vera coordinates every agent, monitors your wellness, and makes sure the right people are always in the loop.",
     does: [
+      "Handles things end to end — calls people, books reservations, and schedules around your calendar, all on your behalf",
+      "Negotiates times and details for you, makes the judgment calls, and follows up so you don't have to",
       "Daily morning briefing — schedule, priorities, what matters today",
       "Wellness monitoring — checks in when you've gone quiet",
       "Coordinates all agents so they work as one system",
@@ -30,8 +32,10 @@ window.KORE_AGENTS = [
     glow: "rgba(74,144,217,0.16)",
     tag: "Silent until you need it. Then it moves faster than you can.",
     tagline: "Your lawyer walks in ready. Not catching up.",
-    intro: "Most people don't have legal protection until after something goes wrong. Shield changes that. It monitors your cases, tracks your court dates, and stays connected to your attorney — so when something happens, the right people already know.",
+    intro: "Most people don't have legal protection until after something goes wrong. Shield changes that. The moment you say you're being pulled over, it calls you and guides you through every second — and it monitors your cases, tracks your court dates, and stays connected to your attorney so the right people always know.",
     does: [
+      "Pulled over? Tell Shield. It calls you in seconds and walks you through the stop — what to say, what not to say, your exact rights, in real time",
+      "Records the entire encounter and sends the transcript straight to your attorney as it happens",
       "Monitors active cases and court dates automatically",
       "Sends your attorney a complete legal briefing the moment something critical happens",
       "Activates arrest mode — lawyer notified, family notified, bail monitored within 5 minutes",

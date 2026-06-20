@@ -83,6 +83,90 @@
   });
 
   /* ----------------------------------------------------------------
+     3b. AGENTS IN ACTION — interactive scenario transcripts
+  ---------------------------------------------------------------- */
+  const scenarios = window.KORE_SCENARIOS || [];
+  const actionMenu = document.getElementById("actionMenu");
+  const device = document.getElementById("actionDevice");
+  if (actionMenu && device && scenarios.length) {
+    const deviceName = document.getElementById("deviceName");
+    const deviceRole = document.getElementById("deviceRole");
+    const deviceContext = document.getElementById("deviceContext");
+    const deviceThread = document.getElementById("deviceThread");
+    let activeIdx = -1;
+    let playTimers = [];
+
+    scenarios.forEach((s, i) => {
+      const btn = document.createElement("button");
+      btn.className = "action-tab";
+      btn.type = "button";
+      btn.setAttribute("role", "tab");
+      btn.style.setProperty("--agent-color", s.color);
+      btn.style.setProperty("--agent-glow", s.glow);
+      btn.innerHTML = `
+        <span class="action-tab__dot"></span>
+        <span class="action-tab__text">
+          <strong>${s.trigger}</strong>
+          <em>${s.agent} · ${s.summary}</em>
+        </span>`;
+      btn.addEventListener("click", () => selectScenario(i));
+      actionMenu.appendChild(btn);
+    });
+
+    function selectScenario(i) {
+      if (i === activeIdx) return;
+      activeIdx = i;
+      const s = scenarios[i];
+
+      Array.from(actionMenu.children).forEach((b, bi) =>
+        b.classList.toggle("is-active", bi === i)
+      );
+
+      device.style.setProperty("--agent-color", s.color);
+      device.style.setProperty("--agent-glow", s.glow);
+      deviceName.textContent = s.agent;
+      deviceRole.textContent = s.role;
+      deviceContext.textContent = s.summary;
+
+      playTimers.forEach(clearTimeout);
+      playTimers = [];
+      deviceThread.innerHTML = "";
+
+      s.messages.forEach((m, mi) => {
+        const row = document.createElement("div");
+        row.className = "bubble bubble--" + m.from;
+        row.innerHTML =
+          `<div class="bubble__text">${m.text}</div>` +
+          (m.meta ? `<div class="bubble__meta">${m.meta}</div>` : "");
+        deviceThread.appendChild(row);
+        if (reduced) {
+          row.classList.add("is-in");
+        } else {
+          playTimers.push(
+            setTimeout(() => row.classList.add("is-in"), 260 + mi * 520)
+          );
+        }
+      });
+    }
+
+    // Play the first scenario when the section scrolls into view
+    let played = false;
+    const actionIO = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && !played) {
+            played = true;
+            selectScenario(0);
+            actionIO.disconnect();
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    actionIO.observe(device);
+  }
+
+  /* ----------------------------------------------------------------
      4. REVEAL ON SCROLL — IntersectionObserver
   ---------------------------------------------------------------- */
   const revealEls = () => document.querySelectorAll("[data-reveal]");

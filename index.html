@@ -152,6 +152,35 @@
     <div class="agent-grid" id="agentGrid"></div>
   </section>
 
+  <!-- ===== AGENTS IN ACTION ===== -->
+  <section class="section action" id="action">
+    <div class="section__head">
+      <p class="kicker reveal" data-reveal>Agents in action</p>
+      <h2 class="section__title reveal" data-reveal>This is what it<br />looks like to <span class="gold">have a team.</span></h2>
+      <p class="section__lead reveal" data-reveal>
+        Real moments, handled in real time. Pick a scenario — watch how your agents respond.
+      </p>
+    </div>
+
+    <div class="action__layout">
+      <div class="action__menu" id="actionMenu" role="tablist" aria-label="Scenarios"></div>
+      <div class="action__stage">
+        <div class="device" id="actionDevice">
+          <div class="device__bar" id="deviceBar">
+            <span class="device__dot"></span>
+            <div class="device__id">
+              <strong id="deviceName">Shield</strong>
+              <span id="deviceRole">Legal Intelligence</span>
+            </div>
+            <span class="device__live">LIVE</span>
+          </div>
+          <p class="device__context" id="deviceContext"></p>
+          <div class="device__thread" id="deviceThread"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== GHOST PROTOCOL ===== -->
   <section class="section ghost" id="ghost">
     <div class="ghost__inner">
@@ -281,6 +310,35 @@
     </div>
   </section>
 
+  <!-- ===== VALUE / COST ===== -->
+  <section class="section value" id="value">
+    <div class="value__inner">
+      <p class="kicker kicker--gold reveal" data-reveal>The math</p>
+      <h2 class="value__title reveal" data-reveal>Hire this team in real life,<br />and you'd be <span class="gold">broke.</span></h2>
+      <p class="value__lead reveal" data-reveal>
+        Every agent does the job of a professional you'd normally pay a salary.
+        Put a price on each one and the numbers get absurd fast.
+      </p>
+
+      <ul class="value__list">
+        <li data-reveal><span class="value__role">Chief of staff</span><span class="value__price">$6,000<small>/mo</small></span></li>
+        <li data-reveal><span class="value__role">Lawyer on retainer</span><span class="value__price">$5,000<small>/mo</small></span></li>
+        <li data-reveal><span class="value__role">Personal CFO</span><span class="value__price">$4,000<small>/mo</small></span></li>
+        <li data-reveal><span class="value__role">Executive assistant</span><span class="value__price">$4,500<small>/mo</small></span></li>
+        <li data-reveal><span class="value__role">Performance coach</span><span class="value__price">$1,500<small>/mo</small></span></li>
+      </ul>
+
+      <div class="value__total reveal" data-reveal>
+        <span>A team like that runs you</span>
+        <strong>$21,000+<small>/mo</small></strong>
+      </div>
+
+      <p class="value__closer reveal" data-reveal>
+        Kore is every one of them — <span class="gold">for a fraction of the cost.</span>
+      </p>
+    </div>
+  </section>
+
   <!-- ===== WAITLIST ===== -->
   <section class="section waitlist" id="waitlist">
     <div class="waitlist__inner">
@@ -310,7 +368,7 @@
       <p>Empowering people through intelligent systems.</p>
     </div>
     <div class="footer__meta">
-      <a href="mailto:edward@korelegion.com">edward@korelegion.com</a>
+      <a href="mailto:contact@korelegion.com">contact@korelegion.com</a>
       <span>© 2026 Kore Legion. All rights reserved.</span>
     </div>
   </footer>
@@ -328,6 +386,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="js/agents.js"></script>
+  <script src="js/scenarios.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
