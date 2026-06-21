@@ -11,14 +11,5 @@ services:
         value: SAMEORIGIN
     routes:
       - type: rewrite
-        source: /optin.html
-        destination: /optin.html
-      - type: rewrite
-        source: /privacy.html
-        destination: /privacy.html
-      - type: rewrite
-        source: /terms.html
-        destination: /terms.html
-      - type: rewrite
-        source: /*
+        source: /
         destination: /index.html
