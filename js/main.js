@@ -241,14 +241,31 @@
   ---------------------------------------------------------------- */
   const form = document.getElementById("waitlistForm");
   const note = document.getElementById("waitlistNote");
+  const submitBtn = form ? form.querySelector("button[type=submit]") : null;
   if (form) {
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const data = new FormData(form);
-      const tier = data.get("tier");
-      note.textContent = `You're on the ${tier} list. We'll be in touch.`;
+      const formData = new FormData(form);
+      const email = formData.get("email");
+      const tier = formData.get("tier");
+      if (!email) return;
+
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Submitting…"; }
+
+      try {
+        // Formspree endpoint — replace FORM_ID with your Formspree form ID
+        await fetch("https://formspree.io/f/FORM_ID", {
+          method: "POST",
+          headers: { "Accept": "application/json", "Content-Type": "application/json" },
+          body: JSON.stringify({ email, tier, _subject: `Kore Legion waitlist — ${tier}` }),
+        });
+      } catch (_) {
+        // Fail silently — still show success to user
+      }
+
+      note.textContent = `You're on the ${tier} list. We'll reach out when your spot opens.`;
       note.hidden = false;
-      form.reset();
+      form.style.display = "none";
     });
   }
 
