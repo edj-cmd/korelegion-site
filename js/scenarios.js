@@ -72,4 +72,22 @@ window.KORE_SCENARIOS = [
       { from: "agent", text: "Get to bed by 11 tonight. I'll check in at 7.", meta: "→ Program updated" },
     ],
   },
+  {
+    key: "sal",
+    agent: "Sal",
+    role: "Personal Advisor",
+    color: "#8b5cf6",
+    glow: "rgba(139,92,246,0.16)",
+    trigger: "When it's heavy",
+    summary: "You're dealing with something. You open Sal.",
+    messages: [
+      { from: "you", text: "I don't know if I'm making the right moves lately." },
+      { from: "agent", text: "Talk to me. What's weighing on you most right now?" },
+      { from: "you", text: "Feels like I'm grinding but not really getting ahead. Financially, personally — all of it." },
+      { from: "agent", text: "I've been reading everything across the system. Ledger flagged three months of spending outpacing income. Haven shows your sleep declining since late March. Echo has 14 open tasks that haven't moved in two weeks." },
+      { from: "agent", text: "You're not stuck because you're not trying. You're stuck because you're spread across too many things that aren't moving fast enough to feel it. That's a focus problem, not a capability problem." },
+      { from: "you", text: "So what do I do." },
+      { from: "agent", text: "Pick one thing that, if it was done by Friday, would make the rest feel smaller. Just one. Tell me what it is." },
+    ],
+  },
 ];

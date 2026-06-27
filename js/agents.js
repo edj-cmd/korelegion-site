@@ -121,4 +121,23 @@ window.KORE_AGENTS = [
       "Monday morning check-in to start the week right",
     ],
   },
+  {
+    key: "sal",
+    name: "Sal",
+    role: "Personal Advisor",
+    color: "#8b5cf6",
+    glow: "rgba(139,92,246,0.16)",
+    tag: "The one who actually knows you. Not just your data.",
+    tagline: "Every other agent knows what's happening. Sal knows what it means.",
+    intro: "Sal is the only agent with a completely private channel. What you tell Sal stays with Sal — but Sal reads across everything the other agents know, so every conversation carries the full weight of your life. Think of Sal as the advisor you can say anything to.",
+    does: [
+      "Completely private — conversations with Sal never cross to other agents",
+      "Reads across all agent memory so Sal always has the full picture",
+      "Helps you think through big decisions, personal and professional",
+      "Calls things out straight when you need to hear it",
+      "Tracks patterns in your life the other agents aren't designed to see",
+      "Available for voice calls — sometimes you need to talk, not type",
+      "No agenda, no judgment — just clarity",
+    ],
+  },
 ];
