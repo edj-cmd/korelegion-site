@@ -252,20 +252,27 @@
 
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Submitting…"; }
 
+      let ok = false;
       try {
-        // Formspree endpoint — replace FORM_ID with your Formspree form ID
-        await fetch("https://formspree.io/f/FORM_ID", {
+        const res = await fetch("https://kore-legion.onrender.com/waitlist", {
           method: "POST",
           headers: { "Accept": "application/json", "Content-Type": "application/json" },
-          body: JSON.stringify({ email, tier, _subject: `Kore Legion waitlist — ${tier}` }),
+          body: JSON.stringify({ email, tier }),
         });
+        ok = res.ok;
       } catch (_) {
-        // Fail silently — still show success to user
+        ok = false;
       }
 
-      note.textContent = `You're on the ${tier} list. We'll reach out when your spot opens.`;
-      note.hidden = false;
-      form.style.display = "none";
+      if (ok) {
+        note.textContent = `You're on the ${tier} list. We'll reach out when your spot opens.`;
+        note.hidden = false;
+        form.style.display = "none";
+      } else {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Request access"; }
+        note.textContent = "Something went wrong — please try again in a moment.";
+        note.hidden = false;
+      }
     });
   }
 
