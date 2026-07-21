@@ -5,6 +5,13 @@
 (function () {
   "use strict";
 
+  // Direct-to-Supabase submission — used so the waitlist form keeps working
+  // even if the Render backend is down/suspended. Paste the "anon public" key
+  // from Supabase Dashboard → Settings → API. Safe to expose client-side —
+  // the table's RLS policy only allows INSERT, nothing else.
+  const SUPABASE_URL = "https://rsonrisetvpvxwrkzfqa.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJzb25yaXNldHZwdnh3cmt6ZnFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0NTIxOTQsImV4cCI6MjA5NzAyODE5NH0.egmZ3mUCcGAgKk08x49p3y9voFLFBVSvTZi3EZuqpYI";
+
   const hasThree = typeof THREE !== "undefined";
   const hasGSAP = typeof gsap !== "undefined";
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -253,15 +260,39 @@
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Submitting…"; }
 
       let ok = false;
-      try {
-        const res = await fetch("https://kore-legion.onrender.com/waitlist", {
-          method: "POST",
-          headers: { "Accept": "application/json", "Content-Type": "application/json" },
-          body: JSON.stringify({ email, tier }),
-        });
-        ok = res.ok;
-      } catch (_) {
-        ok = false;
+
+      // Primary path: straight to Supabase, independent of the backend's uptime.
+      if (SUPABASE_ANON_KEY) {
+        try {
+          const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist_signups`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "apikey": SUPABASE_ANON_KEY,
+              "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+              "Prefer": "resolution=merge-duplicates",
+            },
+            body: JSON.stringify({ email, tier }),
+          });
+          ok = res.ok;
+        } catch (_) {
+          ok = false;
+        }
+      }
+
+      // Fallback: the backend route, in case Supabase rejects for some reason
+      // and the backend happens to be up.
+      if (!ok) {
+        try {
+          const res = await fetch("https://kore-legion.onrender.com/waitlist", {
+            method: "POST",
+            headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            body: JSON.stringify({ email, tier }),
+          });
+          ok = res.ok;
+        } catch (_) {
+          ok = false;
+        }
       }
 
       if (ok) {

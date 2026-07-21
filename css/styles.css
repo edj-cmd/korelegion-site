@@ -622,8 +622,13 @@ a { color: inherit; text-decoration: none; }
 }
 /* ── Pricing ─────────────────────────────────────────────────────────── */
 .pricing { text-align: center; }
+.pricing__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 1180px; margin: 0 auto; align-items: start; }
 .pricing__card { position: relative; max-width: 580px; margin: 0 auto; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 24px; padding: 52px 48px; }
+.pricing__grid .pricing__card { max-width: none; }
+.pricing__card--compact { padding: 44px 40px; }
+.pricing__card--compact .pricing__num { font-size: 64px; }
 .pricing__badge { display: inline-block; background: var(--gold); color: #070a14; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 32px; }
+.pricing__badge--blue { background: #4a90d9; color: #070a14; }
 .pricing__amount { display: flex; align-items: flex-start; justify-content: center; gap: 4px; margin-bottom: 16px; }
 .pricing__dollar { color: var(--gold); font-size: 32px; font-weight: 700; margin-top: 12px; }
 .pricing__num { color: #fff; font-size: 80px; font-weight: 900; line-height: 1; }
@@ -634,6 +639,10 @@ a { color: inherit; text-decoration: none; }
 .pricing__features li::before { content: "✓"; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
 .pricing__cta { width: 100%; display: block; text-align: center; margin-bottom: 16px; }
 .pricing__fine { color: var(--text-dim); font-size: 13px; }
+
+@media (max-width: 860px) {
+  .pricing__grid { grid-template-columns: 1fr; }
+}
 
 .waitlist__lead { font-size: 17px; font-weight: 300; color: var(--text-soft); margin-bottom: 40px; line-height: 1.7; }
 .waitlist__form { display: flex; flex-direction: column; gap: 16px; align-items: center; }
