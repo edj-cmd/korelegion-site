@@ -54,7 +54,7 @@ Decision made: FileVault OFF (the mini stays at home; reliable remote recovery m
 - [ ] Install Tailscale on the mini, MacBook and iPhone; sign in with the same account.
 - [ ] General → Sharing → Screen Sharing ON (fallback while we build).
 - [ ] Test from the iPhone on cellular: connect via Tailscale and Screen Sharing.
-- [ ] Consider an HDMI dummy plug if the mini runs without a monitor.
+- [x] Monitor stays connected (no dummy plug needed). Verify capture still works when the monitor is off/asleep.
 - [ ] Install Xcode (for the Phase 2 host build).
 Until the mini exists: Phase 2 host work is blocked; web client UI and performance-policy logic can be built and unit-tested without it.
 

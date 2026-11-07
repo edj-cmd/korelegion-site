@@ -14,13 +14,13 @@ doctor() {
   say "Screen Sharing (want: enabled)"; sudo launchctl print-disabled system 2>/dev/null | grep -i screensharing || echo "unknown"
   say "Tailscale (want: installed and connected)"
   if command -v tailscale >/dev/null; then tailscale status | head -5; elif [[ -x /Applications/Tailscale.app/Contents/MacOS/Tailscale ]]; then /Applications/Tailscale.app/Contents/MacOS/Tailscale status | head -5; else echo "not installed"; fi
-  say "Display (headless Mac minis may need an HDMI dummy plug)"; system_profiler SPDisplaysDataType | grep -E 'Resolution|Display Type|Online' || echo "no display reported"
+  say "Display (monitor is attached; want it reported online)"; system_profiler SPDisplaysDataType | grep -E 'Resolution|Display Type|Online' || echo "no display reported"
   say "Developer tools (want: Xcode/Swift)"; (swift --version 2>&1 | head -1) || echo "swift missing: install Xcode from the App Store"
 }
 
 apply() {
   say "Power settings: never sleep, wake for network, restart after power failure"
-  if ask "Apply?"; then sudo pmset -a sleep 0 disksleep 0 womp 1 autorestart 1 powernap 0 && sudo pmset -a displaysleep 10; fi
+  if ask "Apply?"; then sudo pmset -a sleep 0 disksleep 0 womp 1 autorestart 1 powernap 0 && sudo pmset -a displaysleep 0; fi   # display never sleeps so remote capture keeps working
   say "Screen Sharing (built-in fallback while Tether is built)"
   if ask "Enable?"; then sudo launchctl enable system/com.apple.screensharing; sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.screensharing.plist 2>/dev/null; fi
   say "Tailscale"

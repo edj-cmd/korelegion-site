@@ -11,7 +11,7 @@ Goal for day one: reach the mini from your iPhone on cellular, then start the Te
 6. **Test the fallback:** iPhone off Wi-Fi (cellular) → Tailscale on → use a VNC/Screen Sharing app, or from the MacBook: Finder → Go → Connect to Server → `vnc://<mini tailscale name>`. If this works, remote access already works and Tether is an upgrade, not a dependency.
 7. Reboot the mini and confirm it comes back and is reachable without touching it.
 8. Install Xcode (App Store), open it once, accept the license: `sudo xcodebuild -license accept`.
-9. If no monitor is attached, buy an HDMI dummy plug.
+9. Keep the monitor connected. Test that remote access still works when the monitor is off or asleep; if capture stalls, set display sleep to Never.
 
 ## B. Build the host (first coding session, on the mini)
 Start Claude Code in the repo on the mini and paste this:
