@@ -30,3 +30,16 @@ See ARCHITECTURE.md §6. Open decisions for the owner: FileVault, headless displ
 1. Owner reviews docs and answers open decisions.
 2. Owner enables Phase 0 fallback.
 3. Start Phase 2a spike on the Mac mini.
+
+## Phase 0 checklist — do when the Mac mini arrives (owner action)
+Decision made: FileVault OFF (the mini stays at home; reliable remote recovery matters more).
+- [ ] Create a strong login password (the mini is reachable over the network).
+- [ ] System Settings → Privacy & Security → FileVault → Turn Off (wait for decryption).
+- [ ] Users & Groups → Automatically log in as (appears once FileVault is off).
+- [ ] Energy → "Prevent automatic sleeping when the display is off" ON; "Start up automatically after a power failure" ON.
+- [ ] Install Tailscale on the mini, MacBook and iPhone; sign in with the same account.
+- [ ] General → Sharing → Screen Sharing ON (fallback while we build).
+- [ ] Test from the iPhone on cellular: connect via Tailscale and Screen Sharing.
+- [ ] Consider an HDMI dummy plug if the mini runs without a monitor.
+- [ ] Install Xcode (for the Phase 2 host build).
+Until the mini exists: Phase 2 host work is blocked; web client UI and performance-policy logic can be built and unit-tested without it.
