@@ -60,3 +60,4 @@ Until the mini exists: Phase 2 host work is blocked; web client UI and performan
 
 ## Research notes
 - Existing products (Workbench, Jump Desktop): see COMPETITORS.md. Action: benchmark both on day one as the baseline; investigate virtual display for headless use.
+- Head-to-head test plan: BENCHMARK_PLAN.md (run on day one for Jump/Workbench baselines, again once Tether streams).

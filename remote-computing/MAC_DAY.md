@@ -13,6 +13,8 @@ Goal for day one: reach the mini from your iPhone on cellular, then start the Te
 8. Install Xcode (App Store), open it once, accept the license: `sudo xcodebuild -license accept`.
 9. Keep the monitor connected. Test that remote access still works when the monitor is off or asleep; if capture stalls, set display sleep to Never.
 
+Baseline: follow BENCHMARK_PLAN.md for Jump Desktop and Workbench before building anything, so we know what to beat.
+
 ## B. Build the host (first coding session, on the mini)
 Start Claude Code in the repo on the mini and paste this:
 
