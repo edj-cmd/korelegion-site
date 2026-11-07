@@ -12,9 +12,12 @@ Phase 1 (docs) done. Phase 2/3 **logic** built and unit-tested on Linux; the Mac
 | Web client / PWA shell (pairing UI, reconnect, key bar, profiles, stats) | `client-web/` | Loads in headless Chromium with no errors except the headless wake-lock denial. **Never connected to a host**, never run on iOS |
 | Protocol spec | `protocol/PROTOCOL.md` | Written |
 | Swift host: Perf port, Auth, Input injector, Capture, launchd plist | `host/`, `tools/` | **Uncompiled, untested.** Written without a Swift toolchain |
-| **Missing** | | Signaling WebSocket server, static file serving in host, libwebrtc integration (frames -> encoder -> peer connection), data-channel wiring, clipboard, file transfer, multi-display, terminal |
+| End-to-end test: real web client + reference Node host + fake-Mac media peer (pairing, auth, WebRTC video, touch/mouse/keys/wheel, profiles, stats, reconnect, revocation) | `tools/refhost.js`, `tools/e2e.cjs` | **12 checks pass** in headless Chromium. This proves the client and protocol; it does not prove the Swift host |
+| Swift host: HTTP+WebSocket server (port of refhost), libwebrtc session, ScreenCaptureKit -> video source, input, clipboard, perf loop | `host/Sources/TetherHost/` | Fully written, **never compiled**. libwebrtc API calls and the Swift package URL/version are from memory |
+| Clipboard: phone -> Mac (paste button) | client + host | Written; Mac -> phone push not built |
+| **Not built** | | File transfer, multi-display, terminal, takeover/watch-only modes, Mac->phone clipboard, input validation inside the Swift host (documented TODO), real-network benchmarks |
 
-Run tests: `npm test` (32 tests). Serve the client locally: `node tools/serve.js`.
+Run tests: `npm test` (32 unit tests) and `node tools/e2e.cjs` (12 end-to-end checks; needs Playwright, preinstalled in the cloud container). Serve the client locally: `node tools/serve.js`.
 
 ## Environment
 - This cloud container: Linux, Rust/Go/Node available, **no Swift/macOS/iPhone**. Used for docs, protocol/policy logic and web client unit tests only.

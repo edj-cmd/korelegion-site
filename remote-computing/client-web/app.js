@@ -138,12 +138,22 @@ function zoomView({ scale, cx, cy }) {
   if (ns === 1) { view.x = 0; view.y = 0; }
   video.style.transform = `translate(${view.x}px,${view.y}px) scale(${view.s})`;
 }
-stage.addEventListener("pointerdown", (e) => { stage.setPointerCapture(e.pointerId); gesture.down(e.pointerId, e.clientX, e.clientY, e.timeStamp).forEach(act); });
-stage.addEventListener("pointermove", (e) => gesture.move(e.pointerId, e.clientX, e.clientY).forEach(act));
-const end = (e) => gesture.up(e.pointerId, e.timeStamp).forEach(act);
-stage.addEventListener("pointerup", end); stage.addEventListener("pointercancel", end);
-// Mouse/trackpad on the MacBook: absolute pointing, wheel, right-click.
-stage.addEventListener("pointermove", (e) => { if (e.pointerType === "mouse") { const r = video.getBoundingClientRect(); coalescer.push((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height); } }, true);
+const norm = (e) => { const r = video.getBoundingClientRect(); return [(e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height]; };
+const BTN = ["left", "middle", "right"];
+stage.addEventListener("pointerdown", (e) => {
+  stage.setPointerCapture(e.pointerId);
+  if (e.pointerType === "mouse") { const [x, y] = norm(e); cursor.x = x; cursor.y = y; return sendCtl(msg.button(BTN[e.button] || "left", true, x, y)); }
+  gesture.down(e.pointerId, e.clientX, e.clientY, e.timeStamp).forEach(act);
+});
+stage.addEventListener("pointermove", (e) => {
+  if (e.pointerType === "mouse") { const [x, y] = norm(e); return coalescer.push(x, y); }   // absolute pointing, no gestures
+  gesture.move(e.pointerId, e.clientX, e.clientY).forEach(act);
+});
+const end = (e) => {
+  if (e.pointerType === "mouse") { const [x, y] = norm(e); return sendCtl(msg.button(BTN[e.button] || "left", false, x, y)); }
+  gesture.up(e.pointerId, e.timeStamp).forEach(act);
+};
+stage.addEventListener("pointerup", end); stage.addEventListener("pointercancel", (e) => { if (e.pointerType !== "mouse") end(e); });
 stage.addEventListener("wheel", (e) => { e.preventDefault(); sendCtl(msg.scroll(e.deltaX, e.deltaY)); }, { passive: false });
 stage.addEventListener("contextmenu", (e) => e.preventDefault());
 
@@ -172,6 +182,7 @@ renderKeys();
 
 // ---------- chrome ----------
 $("profile").onchange = () => sendCtl({ t: "profile", name: $("profile").value });
+$("paste").onclick = async () => { try { const t = await navigator.clipboard.readText(); if (t) sendCtl(msg.clipboard(t)); } catch { setStatus("Clipboard blocked (tap again)", "wait"); } };
 $("hide").onclick = () => { $("bar").classList.toggle("hidden"); };
 addEventListener("resize", () => cursor.resize(innerWidth, innerHeight));
 // iOS suspends the page in the background: on return, reconnect immediately instead of waiting out the backoff.
