@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>Label</key><string>com.tether.host</string>
+  <key>ProgramArguments</key><array><string>/usr/local/bin/TetherHost</string></array>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>            <!-- restart after a crash -->
+  <key>ProcessType</key><string>Interactive</string>
+  <key>StandardErrorPath</key><string>/tmp/tether-host.log</string>
+</dict></plist>
+<!-- Install as a LaunchAgent (needs the GUI login session for capture/input):
+     cp this to ~/Library/LaunchAgents/ && launchctl load ~/Library/LaunchAgents/com.tether.host.plist -->

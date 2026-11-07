@@ -1,0 +1,7 @@
+{
+  "name": "tether",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": { "test": "node --test core/*.test.js client-web/*.test.js" }
+}

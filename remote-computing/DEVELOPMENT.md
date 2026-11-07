@@ -1,7 +1,20 @@
 # DEVELOPMENT
 
 ## Current status
-Phase 1 (research & architecture) delivered as documents. No product code exists. See ARCHITECTURE.md and DEPENDENCIES.md.
+Phase 1 (docs) done. Phase 2/3 **logic** built and unit-tested on Linux; the Mac host is **not complete and has never been compiled or run**.
+
+| Piece | Path | State |
+|---|---|---|
+| Performance policy (4 profiles, degrade-fast/recover-slow) | `core/perf.js` | Built, 11 tests pass, simulated congestion episode verified. Not yet benchmarked on a real network |
+| Pairing + challenge/response auth (ECDSA P-256) | `core/auth.js` | Built, 7 tests pass |
+| Input wire format + host-side validation | `core/input.js` | Built, 5 tests pass |
+| Touch gestures (tap, drag, 2-finger scroll, pinch, tap-drag) | `client-web/gestures.js` | Built, 9 tests pass. Feel/tuning needs a real iPhone |
+| Web client / PWA shell (pairing UI, reconnect, key bar, profiles, stats) | `client-web/` | Loads in headless Chromium with no errors except the headless wake-lock denial. **Never connected to a host**, never run on iOS |
+| Protocol spec | `protocol/PROTOCOL.md` | Written |
+| Swift host: Perf port, Auth, Input injector, Capture, launchd plist | `host/`, `tools/` | **Uncompiled, untested.** Written without a Swift toolchain |
+| **Missing** | | Signaling WebSocket server, static file serving in host, libwebrtc integration (frames -> encoder -> peer connection), data-channel wiring, clipboard, file transfer, multi-display, terminal |
+
+Run tests: `npm test` (32 tests). Serve the client locally: `node tools/serve.js`.
 
 ## Environment
 - This cloud container: Linux, Rust/Go/Node available, **no Swift/macOS/iPhone**. Used for docs, protocol/policy logic and web client unit tests only.
@@ -29,7 +42,8 @@ See ARCHITECTURE.md §6. Open decisions for the owner: FileVault, headless displ
 ## Next steps
 1. Owner reviews docs and answers open decisions.
 2. Owner enables Phase 0 fallback.
-3. Start Phase 2a spike on the Mac mini.
+3. Start Phase 2a spike on the Mac mini: `cd host && swift build`, fix compile errors, run `swift test`, run the capture smoke test.
+4. Add signaling server + libwebrtc and connect the web client end to end.
 
 ## Phase 0 checklist — do when the Mac mini arrives (owner action)
 Decision made: FileVault OFF (the mini stays at home; reliable remote recovery matters more).

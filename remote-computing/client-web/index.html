@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Tether</title>
+<style>
+  :root { color-scheme: dark; }
+  html,body { margin:0; height:100%; background:#000; color:#ddd; font:15px -apple-system,system-ui,sans-serif;
+    overscroll-behavior:none; -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
+  #stage { position:fixed; inset:0; overflow:hidden; touch-action:none; }
+  video { position:absolute; left:0; top:0; transform-origin:0 0; background:#000; }
+  #bar { position:fixed; left:0; right:0; top:0; padding:calc(env(safe-area-inset-top) + 6px) 10px 6px;
+    display:flex; gap:8px; align-items:center; background:rgba(20,20,20,.85); transition:transform .2s; z-index:5; }
+  #bar.hidden { transform:translateY(-100%); }
+  #dot { width:10px; height:10px; border-radius:50%; background:#c33; }
+  #dot.ok { background:#3c6; } #dot.wait { background:#ca3; }
+  #status { flex:1; font-size:13px; opacity:.85; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  button,select { font:inherit; color:#eee; background:#333; border:0; border-radius:8px; padding:7px 10px; }
+  #keys { position:fixed; left:0; right:0; bottom:0; display:none; gap:6px; padding:6px 6px calc(env(safe-area-inset-bottom) + 6px);
+    background:rgba(20,20,20,.9); z-index:5; overflow-x:auto; }
+  #keys.show { display:flex; }
+  #kb { position:fixed; left:-1000px; top:0; opacity:0; width:1px; height:1px; }
+  #pair { position:fixed; inset:0; display:none; place-items:center; background:#000; z-index:9; }
+  #pair.show { display:grid; } #pair form { display:grid; gap:12px; width:min(320px,86vw); }
+  #pair input { font:inherit; padding:12px; border-radius:10px; border:1px solid #444; background:#111; color:#eee; -webkit-user-select:text; user-select:text; }
+</style>
+</head>
+<body>
+<div id="stage"><video id="v" autoplay playsinline muted></video></div>
+<div id="bar">
+  <span id="dot"></span><span id="status">Starting…</span>
+  <select id="profile" aria-label="Performance profile">
+    <option value="balanced">Balanced</option><option value="performance">Performance</option>
+    <option value="quality">Quality</option><option value="lowbandwidth">Low bandwidth</option>
+  </select>
+  <button id="kbbtn">⌨︎</button><button id="hide">▲</button>
+</div>
+<div id="keys"></div>
+<input id="kb" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="keyboard">
+<div id="pair"><form id="pairform"><b>Pair this device</b>
+  <input id="name" placeholder="Device name (e.g. iPhone)" required>
+  <input id="code" inputmode="numeric" pattern="[0-9]{8}" placeholder="8-digit code from the Mac mini" required>
+  <button>Pair</button><span id="pairerr"></span></form></div>
+<script type="module" src="app.js"></script>
+</body></html>
