@@ -57,3 +57,6 @@ Decision made: FileVault OFF (the mini stays at home; reliable remote recovery m
 - [ ] Consider an HDMI dummy plug if the mini runs without a monitor.
 - [ ] Install Xcode (for the Phase 2 host build).
 Until the mini exists: Phase 2 host work is blocked; web client UI and performance-policy logic can be built and unit-tested without it.
+
+## Research notes
+- Existing products (Workbench, Jump Desktop): see COMPETITORS.md. Action: benchmark both on day one as the baseline; investigate virtual display for headless use.
